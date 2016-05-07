@@ -9,9 +9,13 @@ public class TriangleTest
         Point c = new Point(-1, -4);
 
         Triangle triangle = new Triangle(a, b, c);
-        System.out.println(triangle.area());
 
-        MaxLength maxLength = new MaxLength(triangle);
-        System.out.println(maxLength.max(a, b, c));
+        if (triangle.isTriangle()) {
+            System.out.println("triangle area: " + triangle.area());
+            MaxLength maxLength = new MaxLength(triangle);
+            System.out.println("max length: " + maxLength.max(a, b, c));
+        } else {
+            System.out.println("figure is not a triangle!");
+        }
     }
 }
