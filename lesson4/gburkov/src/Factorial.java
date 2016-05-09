@@ -1,9 +1,6 @@
 package gburkov;
 
 public class Factorial {
-    public static void main(String[] args) {
-        System.out.println(fact(5));
-    }
 
     public static int fact(int value) {
         if (value < 0) return -1;
