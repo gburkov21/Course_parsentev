@@ -1,6 +1,8 @@
 package gburkov;
 
-public String[] removeDubl(String[] value) {
+public class RemoveDublicate {
+
+    public String[] removeDubl(String[] value) {
         for (int i = 0; i < value.length; i++) {
             for (int j = i + 1; j < value.length; j++) {
                 if (value[j].equals(value[i])) {
@@ -9,14 +11,14 @@ public String[] removeDubl(String[] value) {
             }
         }
         int i, length2;
-        for (i = 0, length2=0; i < value.length; i++) {
-            if (!value[i].equals("")){
+        for (i = 0, length2 = 0; i < value.length; i++) {
+            if (!value[i].equals("")) {
                 length2++;
             }
         }
         String[] value2 = new String[length2];
-        for (i = 0, length2=0; i < value.length; i++) {
-            if (!value[i].equals("")){
+        for (i = 0, length2 = 0; i < value.length; i++) {
+            if (!value[i].equals("")) {
                 value2[length2] = value[i];
                 length2++;
             }
@@ -33,4 +35,5 @@ public String[] removeDubl(String[] value) {
 //        }
 //        return unique;
 //    }
+
 }
