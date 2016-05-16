@@ -13,6 +13,5 @@ public class RotateArrayTest {
         myArray.printArray(values);
         System.out.println();
         myArray.rotate(values);
-        myArray.printArray(values);
     }
 }
