@@ -6,22 +6,23 @@ public class SubWord {
         char[] lineArray = line.toCharArray();
         char[] subLineArray = sub.toCharArray();
         boolean isContains = false;
-        int k = 0;
 
         for (int i = 0; i < lineArray.length; i++) {
             for (int j = 0; j < subLineArray.length; j++) {
-                if (subLineArray[k] == lineArray[i]) {
-                        k++;
-                    if (k == subLineArray.length){
+
+                if (subLineArray[j] == lineArray[i]) {
+                    isContains = true;
+                    i++;
+
+                    if (j == subLineArray.length-1){
                         return isContains;
                     }
-                        isContains = true;
-                        break;
+                    continue;
                 }
-                else {
                     isContains = false;
                     break;
-                }
+
+
             }
         }
 
