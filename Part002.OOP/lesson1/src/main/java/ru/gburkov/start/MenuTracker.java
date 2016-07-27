@@ -2,13 +2,10 @@ package ru.gburkov.start;
 
 import ru.gburkov.models.*;
 
-import java.util.Arrays;
-
-
 public class MenuTracker {
     private Tracker tracker;
     private Input input;
-    private UserAction[] actions = new UserAction[6];
+    private UserAction[] actions = new UserAction[8];
 
     public MenuTracker(Input input, Tracker tracker) {
         this.tracker = tracker;
@@ -21,8 +18,9 @@ public class MenuTracker {
         this.actions[2] = new EditItem();
         this.actions[3] = new DeleteItem();
         this.actions[4] = new AddComment();
-        this.actions[5] = new ShowComments();
-
+        this.actions[5] = new SearchByName();
+        this.actions[6] = new SearchById();
+        this.actions[7] = new SearchByDescription();
     }
 
     public void select(int key) {
@@ -79,11 +77,7 @@ public class MenuTracker {
 
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Please enter the task's id: ");
-            String name = input.ask("Please enter the task's name: ");
-            String desc = input.ask("Please enter the task's desc: ");
-            Task task = new Task(name, desc);
-            task.setId(id);
-            tracker.delete(task);
+            tracker.delete(new Item(id));
         }
 
         public String info() {
@@ -99,7 +93,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             for (Item item : tracker.getAll()) {
                 if (item != null) {
-                    System.out.println(String.format("id: %s  name: %s  description: %s", item.getId(), item.getName(), item.getDescription()));
+                    System.out.println(item);
                 }
             }
         }
@@ -116,12 +110,8 @@ public class MenuTracker {
 
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Please enter the task's id: ");
-            String name = input.ask("Please enter the task's name: ");
-            String desc = input.ask("Please enter the task's desc: ");
             String comment = input.ask("Please enter the task's comment: ");
-            Task task = new Task(name, desc);
-            task.setId(id);
-            tracker.addComment(task, new Comment(comment));
+            tracker.addComment(new Item(id), new Comment(comment));
 
         }
 
@@ -130,19 +120,64 @@ public class MenuTracker {
         }
     }
 
-    private class ShowComments implements UserAction {
+    private class SearchByName implements UserAction {
         public int key() {
             return 5;
         }
 
         public void execute(Input input, Tracker tracker) {
+            String name = input.ask("Please enter the task's name: ");
             for (Item item : tracker.getAll()) {
-               item.getComments();
+                if (item != null && item.getName().contains(name)){
+                    System.out.println(item);
+                }
             }
+
         }
 
         public String info() {
-            return String.format("%s. %s", this.key(), "Show all comments");
+            return String.format("%s. %s", this.key(), "Search by task's name.");
         }
     }
+
+    private class SearchById implements UserAction {
+        public int key() {
+            return 6;
+        }
+
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("Please enter the task's id: ");
+            for (Item item : tracker.getAll()) {
+                if (item != null && item.getId().contains(id)){
+                    System.out.println(item);
+                }
+            }
+
+        }
+
+        public String info() {
+            return String.format("%s. %s", this.key(), "Search by task's ID.");
+        }
+    }
+
+    private class SearchByDescription implements UserAction {
+        public int key() {
+            return 7;
+        }
+
+        public void execute(Input input, Tracker tracker) {
+            String desc = input.ask("Please enter the task's description: ");
+            for (Item item : tracker.getAll()) {
+                if (item != null && item.getDescription().contains(desc)){
+                    System.out.println(item);
+                }
+            }
+
+        }
+
+        public String info() {
+            return String.format("%s. %s", this.key(), "Search by task's description.");
+        }
+    }
+
 }

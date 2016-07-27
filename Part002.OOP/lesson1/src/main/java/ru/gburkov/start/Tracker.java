@@ -15,16 +15,6 @@ public class Tracker {
         return item;
     }
 
-    protected Item findById(String id) {
-        Item result = null;
-        for (Item item : items) {
-            if (item != null && item.getId().equals(id)) {
-                result = item;
-                break;
-            }
-        }
-        return result;
-    }
 
     public void edit(Item fresh) {
         for (int index = 0; index != items.length; ++index) {
@@ -46,11 +36,22 @@ public class Tracker {
         }
     }
 
-    public Item findByName(String name) {
+    protected Item findById(String id) {
         Item result = null;
         for (Item item : items) {
-            if (item != null && item.getName().equals(name)) {
+            if (item != null && item.getId().equals(id)) {
                 result = item;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public boolean findByName(String name) {
+        boolean result = false;
+        for (Item item : items) {
+            if (item != null && item.getName().contains(name)) {
+                result = true;
                 break;
             }
         }
@@ -60,7 +61,7 @@ public class Tracker {
     public Item findByDescription(String desc) {
         Item result = null;
         for (Item item : items) {
-            if (item != null && item.getDescription().equals(desc)) {
+            if (item != null && item.getDescription().contains(desc)) {
                 result = item;
                 break;
             }
@@ -82,14 +83,16 @@ public class Tracker {
     public Comment addComment(Item item, Comment comments) {
         for (int i = 0; i != items.length; i++) {
             if (items[i]!=null && items[i].getId().equals(item.getId())){
-                items[i].addComment(comments);
+                if (items[i].getComment()==null) {
+                    items[i].addComment(comments);
+                }else items[i].setComment(comments);
             }
         }
         return comments;
     }
 
     String generateId() {
-        return String.valueOf(RN.nextInt(1000));
+        return String.valueOf(RN.nextInt(10000));
     }
 
     public Item[] getAll() {

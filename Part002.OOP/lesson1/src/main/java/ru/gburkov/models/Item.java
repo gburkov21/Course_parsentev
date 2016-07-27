@@ -1,7 +1,5 @@
 package ru.gburkov.models;
 
-import java.util.Arrays;
-
 public class Item {
     private String id;
     public String name;
@@ -14,10 +12,22 @@ public class Item {
 
     }
 
+    public Item(String id) {
+        this.id = id;
+    }
+
     public Item(String name, String description, long create) {
         this.name = name;
         this.description = description;
         this.create = create;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {
@@ -45,24 +55,23 @@ public class Item {
         return comment;
     }
 
-    public void getComments() {
-        Comment[] result;
-        int count = 0;
-        for (Comment comment : comments) {
-            if (comment != null) {
-                count++;
-            }
-        }
-
-        result = new Comment[count];
-        for (int i = 0; i != comments.length; i++) {
-            if (comments[i] != null) {
-                result[i] = comments[i];
-            }
-        }
-        for (Comment comment : result) {
-            System.out.println(comment);
-        }
+    public void setComment(Comment comment) {
+        this.comments[this.commentPosition] = comment;
     }
 
+    public String getComment() {
+        String result = "";
+        for (int i = 0; i < comments.length; i++){
+            if (comments[i]!=null){
+                result = comments[i].getComment();
+            }
+        }
+        return result;
+
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + id + ";   name: " + name + ";   description: " + description + ";   comments: " + this.getComment();
+    }
 }

@@ -1,9 +1,7 @@
 package ru.gburkov.start;
 
-import ru.gburkov.models.*;
-
 public class StartUI {
-    private int[] ranges = new int[]{0,1,2,3,4,5};
+    private int[] ranges = new int[]{0,1,2,3,4,5,6,7};
     private Input input;
 
     public StartUI(Input input) {
